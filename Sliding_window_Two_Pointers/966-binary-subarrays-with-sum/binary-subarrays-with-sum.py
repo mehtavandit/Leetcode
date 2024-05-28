@@ -1,13 +1,26 @@
 class Solution:
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        count = 0  
-        prefix_sum = 0 
-        sum_counts = {0: 1}  
 
-        for num in nums:
-            prefix_sum += num
-            if prefix_sum - goal in sum_counts:
-                count += sum_counts[prefix_sum - goal]
-            sum_counts[prefix_sum] = sum_counts.get(prefix_sum, 0) + 1
+        def findSum(nums, goal):
+            if goal < 0:
+                return 0
 
-        return count
+            l = 0
+            r = 0
+            sum_ = 0
+            count = 0
+            n = len(nums)
+
+            while (r<n):
+                sum_ += nums[r]
+                while (sum_ > goal):
+                    sum_ -= nums[l]
+                    l += 1
+                count += r-l+1
+                r += 1
+            return count
+
+        main_count = findSum(nums, goal) - findSum(nums, goal-1)
+        return main_count
+
+        
