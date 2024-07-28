@@ -28,8 +28,6 @@ class Solution:
 
             for _ in range(size):
                 node, index = q.popleft()
-                # Normalize the index to avoid large numbers
-                # index -= min_index
 
                 if node.left:
                     q.append((node.left, 2*index + 1))
