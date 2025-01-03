@@ -20,14 +20,16 @@ class Solution:
 
         left = max(weights)
         right = sum(weights)
+        res = 0
 
         while left<=right:
 
             k = (left + right) // 2
 
             if canCarry(k):
+                res = k
                 right = k - 1
             else:
                 left = k + 1
 
-        return left
+        return res
