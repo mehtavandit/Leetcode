@@ -23,7 +23,7 @@ class Solution:
         while left < right:
             nodes[left].next = nodes[right]
             left += 1
-            if left >= right:
+            if left == right:
                 break
             nodes[right].next = nodes[left]
             right -= 1
