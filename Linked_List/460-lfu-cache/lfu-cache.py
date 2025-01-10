@@ -2,7 +2,7 @@ class Node:
     def __init__(self, key, value):
         self.key = key
         self.value = value
-        self.freq = 1  # Frequency of use
+        self.freq = 1  
         self.prev = None
         self.next = None
 
@@ -15,21 +15,18 @@ class DoublyLinkedList:
         self.tail.prev = self.head
 
     def add_node(self, node):
-        """Add a node to the front of the list."""
         node.next = self.head.next
         node.prev = self.head
         self.head.next.prev = node
         self.head.next = node
 
     def remove_node(self, node):
-        """Remove a node from the list."""
         prev_node = node.prev
         next_node = node.next
         prev_node.next = next_node
         next_node.prev = prev_node
 
     def pop_tail(self):
-        """Pop the last real node (before the dummy tail)."""
         if self.head.next == self.tail:  
             return None
         tail_node = self.tail.prev
@@ -46,7 +43,6 @@ class LFUCache:
         self.min_freq = 0  
 
     def update_frequency(self, node):
-        """Update the frequency of a node."""
         freq = node.freq
         self.freq_map[freq].remove_node(node)
         if not self.freq_map[freq].head.next != self.freq_map[freq].tail:
