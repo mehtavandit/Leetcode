@@ -9,12 +9,12 @@ class MyStack:
         self.q1.put(x)
 
     def pop(self) -> int:
-
-        while(self.q1.qsize() > 1):
+        
+        while (self.q1.qsize() > 1):
             self.q2.put(self.q1.get())
 
         x = self.q1.get()
-        self.q1,self.q2 = self.q2, self.q1
+        self.q1, self.q2 = self.q2, self.q1
         return x
         
 
