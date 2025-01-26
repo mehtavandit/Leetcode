@@ -14,8 +14,8 @@ class Solution:
             return root
 
         root.left, root.right = root.right, root.left
-        self.helper(root.left)
         self.helper(root.right)
+        self.helper(root.left)
         
 
         
