@@ -4,26 +4,25 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import deque
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        if not root:
+        root.right = self.invertBT(root.right)
+        return self.isSame(root.left, root.right)
+
+    def invertBT(self, node):
+        if node is None:
+            return node
+        
+        node.left, node.right = node.right, node.left
+        node.left = self.invertBT(node.left)
+        node.right = self.invertBT(node.right)
+
+        return node
+
+    def isSame(self, node1, node2):
+        if (node1 is None) and (node2 is None):
             return True
-
-        q = deque([(root,root)])
-
-        while q:
-            t1, t2 = q.popleft()
-
-            if not t1 and not t2:
-                continue
-            if not t1 or not t2:
-                return False
-            if t1.val != t2.val:
-                return False
-
-            q.append((t1.left, t2.right))
-            q.append((t1.right, t2.left))
-
-
-        return True
+        if (node1 is None) or (node2 is None) or (node1.val != node2.val):
+            return False
+        
+        return self.isSame(node1.left, node2.left) and self.isSame(node1.right, node2.right)
