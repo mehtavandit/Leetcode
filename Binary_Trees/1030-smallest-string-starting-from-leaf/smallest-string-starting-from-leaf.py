@@ -13,7 +13,7 @@ class Solution:
             if root is None:
                 return
 
-            path += chr(self.base + root.val)
+            path.append(chr(97 + root.val))
 
             if root.left is None and root.right is None:
                 reversed_path = "".join(reversed(path))
@@ -26,6 +26,8 @@ class Solution:
             dfs(root.left, path)
             dfs(root.right, path)
 
+            path.pop()
+
             
-        dfs(root, "")
+        dfs(root, [])
         return self.smallest_string
