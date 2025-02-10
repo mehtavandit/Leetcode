@@ -20,7 +20,7 @@ class Solution:
             rights = serialize(node.right)
 
             string = f"{node.val}({lefts})({rights})"
-            print(string)
+            # print(string)
 
             if string in subtree_info:
                 if string not in seen:  
