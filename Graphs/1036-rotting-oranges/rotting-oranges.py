@@ -1,36 +1,49 @@
+from collections import deque
+
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        rows, cols = len(grid), len(grid[0])
-        fresh_oranges = 0
-        minutes = 0
-        queue = deque()
+        q = deque()
 
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 2:
-                    queue.append((r,c))
-                elif grid[r][c] == 1:
-                    fresh_oranges +=1
+        directions = [(1,0), (-1,0), (0,1), (0,-1)]
+        fresh_orange = 0
+        minutes = 0 
 
-        if fresh_oranges == 0:
+        rows = len(grid)
+        cols = len(grid[0])
+
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == 1:
+                    fresh_orange += 1
+                if grid[i][j] == 2:
+                    q.append((i,j))
+
+        print(fresh_orange)
+        print(q)
+
+        if fresh_orange == 0:
             return 0
 
-        directions = [(0,1), (1,0), (0,-1), (-1,0)]
+        while q:
+            size = len(q)
+            for i in range(size):
+                row, col = q.popleft()
 
-        while queue:
+                for dr, dc in directions:
+                    new_row, new_col = row + dr, col + dc
+
+                    if 0<=new_row<rows and 0<=new_col<cols and grid[new_row][new_col] == 1:
+                        grid[new_row][new_col] = 2
+                        q.append((new_row, new_col))
+                        fresh_orange -= 1
+
             minutes += 1
-            for _ in range(len(queue)):
-                x,y = queue.popleft()
-                for dx, dy in directions:
-                    nx = x+dx
-                    ny = y+dy
 
-                    if 0 <= nx < rows and 0<=ny<cols and grid[nx][ny] == 1:
-                        grid[nx][ny] = 2
-                        fresh_oranges = fresh_oranges - 1
-                        queue.append((nx, ny))
+        
 
-        if fresh_oranges == 0:
-            return minutes-1
+
+        
+        if fresh_orange == 0:
+            return minutes - 1
         else:
             return -1
