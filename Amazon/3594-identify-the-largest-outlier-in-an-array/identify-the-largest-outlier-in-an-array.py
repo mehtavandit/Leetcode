@@ -29,7 +29,7 @@ class Solution:
             y = total - 2 * num
 
             if y in num_counts:
-                if y!=num or num_counts[num] > 1:
+                if y!=num or num_counts[y] > 1:
                     max_outlier = max(max_outlier, y)
 
         return max_outlier 
