@@ -16,9 +16,27 @@
 
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
-        result = 0
+        # result = 0
 
-        for num in nums:
-            result ^= num
+        # for num in nums:
+        #     result ^= num
 
-        return result
+        # return result
+
+        n = len(nums)
+        low = 0
+        high = n - 1
+
+        while low < high:
+
+            mid = (low + high) // 2
+
+            if mid % 2 == 1: #bcoz a pair should alwasy start at odd index
+                mid -= 1
+
+            if nums[mid] == nums[mid+1]:
+                low = mid + 2
+            else:
+                high = mid
+
+        return nums[low]
