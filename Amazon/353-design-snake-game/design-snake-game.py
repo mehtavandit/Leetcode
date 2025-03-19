@@ -24,7 +24,7 @@ class SnakeGame:
         if newHead[1] < 0 or newHead[1] >= self.width: #check if it goes out of widht
             return -1
 
-        if newHead in self.snake and newHead != self.snake[-1]: #if it bites itself
+        if newHead in self.snake_set and newHead != self.snake[-1]: #if it bites itself
             return -1
 
         new_food_item = self.food[self.food_index] if self.food_index < len(self.food) else None
