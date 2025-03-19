@@ -13,7 +13,7 @@ class SnakeGame:
             'L' : [0, -1],
             'R' : [0, 1]
         }
-        self.snake_set = {(0,0) : 1}
+        self.snake_set = {(0,0)}
 
     def move(self, direction: str) -> int:
         newHead = (self.snake[0][0] + self.movement[direction][0], self.snake[0][1] + self.movement[direction][1])
@@ -33,10 +33,10 @@ class SnakeGame:
             self.food_index += 1
         else:
             tail = self.snake.pop()
-            del self.snake_set[tail]
+            self.snake_set.remove(tail)
 
         self.snake.appendleft(newHead)
-        self.snake_set[newHead] = 1
+        self.snake_set.add(newHead)
 
         return len(self.snake) - 1
 
