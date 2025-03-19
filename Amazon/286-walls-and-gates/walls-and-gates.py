@@ -21,7 +21,7 @@ class Solution:
                 new_row = row + nr
                 new_col = col + nc
 
-                if 0<= new_row<rows and 0<=new_col<cols and rooms[new_row][new_col] > rooms[row][col] + 1:
+                if 0<= new_row<rows and 0<=new_col<cols and rooms[new_row][new_col] > rooms[row][col] + 1 and rooms[new_row][new_col] != -1:
                     rooms[new_row][new_col] = rooms[row][col] + 1
                     q.append((new_row, new_col))
 
