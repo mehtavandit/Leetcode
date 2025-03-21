@@ -7,7 +7,7 @@ class Solution:
         # Step 1: Group the websites visited by each user in timestamp order
         user_visited = defaultdict(list)
 
-        for user, _, site in sorted(zip(username, timestamp, website), key=lambda x: x[1]):
+        for user, _, site in sorted(zip(username, timestamp, website)):
             user_visited[user].append(site)
 
         print(user_visited)
@@ -19,6 +19,8 @@ class Solution:
             unique_triples = set(itertools.combinations(visited_websites, 3))
             for triple in unique_triples:
                 counter[triple] += 1
+
+        print(counter)
 
         # Step 3: Find the most visited pattern with tie-breaking
         pattern, count = None, 0
