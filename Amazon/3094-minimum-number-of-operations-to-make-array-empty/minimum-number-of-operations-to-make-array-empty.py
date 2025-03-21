@@ -32,23 +32,23 @@ class Solution:
 
         operations = 0
 
-        # for values in (count.values()):
-        #     if values == 1:
-        #         return -1
-            
-        #     if values % 3 == 0:
-        #         operations += values //3
-
-        #     if values % 3 == 1:
-        #         operations += values // 2
-
-        #     if values % 3 == 2:
-        #         operations += values // 3 + 1
-
-        for values in count.values():
+        for values in (count.values()):
             if values == 1:
                 return -1
             
-            operations += (values + 2)//3
+            if values % 3 == 0:
+                operations += values //3
+
+            if values % 3 == 1:
+                operations += values // 3 + 1
+
+            if values % 3 == 2:
+                operations += values // 3 + 1
+
+        # for values in count.values():
+        #     if values == 1:
+        #         return -1
+            
+        #     operations += (values + 2)//3
 
         return operations
