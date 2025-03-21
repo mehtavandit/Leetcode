@@ -4,13 +4,14 @@ import itertools
 
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
-        # Step 1: Group the websites visited by each user in chronological order
+        # Step 1: Group the websites visited by each user in timestamp order
         user_visited = defaultdict(list)
 
         for user, _, site in sorted(zip(username, timestamp, website), key=lambda x: x[1]):
             user_visited[user].append(site)
 
-        # Step 2: Count all unique triples of websites visited by users
+        print(user_visited)
+
         counter = Counter()
 
         for visited_websites in user_visited.values():
@@ -23,8 +24,10 @@ class Solution:
         pattern, count = None, 0
 
         for pat, c in counter.items():
-            if c > count or (c == count and (pattern is None or pat < pattern)):
+            if c > count:
                 pattern = pat
                 count = c
+            elif c == count and pattern > pat:
+                pattern = pat
 
         return list(pattern) if pattern else []
