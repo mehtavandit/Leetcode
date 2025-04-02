@@ -15,16 +15,10 @@ class Solution:
 
         dp = [-1] * n
 
-        def rec(i):
-            if i==0:
-                return nums[0]
-            if i<0:
-                return 0
-            if dp[i] != -1:
-                return dp[i]
-            pick = nums[i] + rec(i-2)
-            notpick = 0 + rec(i-1)
-            dp[i] =  max(pick, notpick)
-            return dp[i]
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
 
-        return rec(n-1)
+        for i in range(2, n):
+            dp[i] = max(nums[i] + dp[i-2], dp[i-1])
+
+        return dp[n-1]
