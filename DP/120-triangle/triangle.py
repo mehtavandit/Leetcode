@@ -3,7 +3,7 @@ class Solution:
         
         n = len(triangle)
 
-        dp = [ [-1 for j in range(n)] for i in range(n)]
+        # dp = [ [-1 for j in range(n)] for i in range(n)]
         
         #Memoization
         # def rec(row, col):
@@ -22,14 +22,34 @@ class Solution:
 
         #Tabulation
 
+        # for j in range(n):
+        #     dp[n-1][j] = triangle[n-1][j]
+
+        # for i in range(n-2, -1, -1):
+        #     for j in range(i, -1, -1):
+        #         down = triangle[i][j] + dp[i+1][j]
+        #         dig = triangle[i][j] + dp[i+1][j+1]
+
+        #         dp[i][j] = min(down, dig)
+
+        # return dp[0][0]
+
+        #Space Optimization
+
+        prev = [0] * n
+        curr = [0] * n
         for j in range(n):
-            dp[n-1][j] = triangle[n-1][j]
+            prev[j] = triangle[n-1][j]
+
 
         for i in range(n-2, -1, -1):
             for j in range(i, -1, -1):
-                down = triangle[i][j] + dp[i+1][j]
-                dig = triangle[i][j] + dp[i+1][j+1]
+                down = triangle[i][j] + prev[j]
+                dig = triangle[i][j] + prev[j+1]
 
-                dp[i][j] = min(down, dig)
+                curr[j] = min(down, dig)
 
-        return dp[0][0]
+            prev = curr[:]
+
+
+        return prev[0]
