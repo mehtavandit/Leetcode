@@ -34,19 +34,31 @@ class Solution:
 
         #Tabulations
 
-        for j in range(cols):
-            dp[0][j] = matrix[0][j]
+        # for j in range(cols):
+        #     dp[0][j] = matrix[0][j]
 
-        print(dp)
+        # print(dp)
+
+        # for row in range(1, rows):
+        #     for col in range(cols):
+        #         up = dp[row-1][col] + matrix[row][col]
+        #         left_up = dp[row-1][col-1] + matrix[row][col] if col > 0 else float('inf')
+        #         right_up = dp[row-1][col+1] + matrix[row][col] if col < cols-1 else float('inf')
+
+        #         dp[row][col] = min(up, left_up, right_up)
+
+
+        # return min(dp[-1])
+
+        #Space Optimized
 
         for row in range(1, rows):
             for col in range(cols):
-                up = dp[row-1][col] + matrix[row][col]
-                left_up = dp[row-1][col-1] + matrix[row][col] if col > 0 else float('inf')
-                right_up = dp[row-1][col+1] + matrix[row][col] if col < cols-1 else float('inf')
+                up = matrix[row-1][col] + matrix[row][col]
+                left_up = matrix[row-1][col-1] + matrix[row][col] if col > 0 else float('inf')
+                right_up = matrix[row-1][col+1] + matrix[row][col] if col < cols-1 else float('inf')
 
-                dp[row][col] = min(up, left_up, right_up)
+                matrix[row][col] = min(up, left_up, right_up)
 
-
-        return min(dp[-1])
+        return min(matrix[-1])
 
