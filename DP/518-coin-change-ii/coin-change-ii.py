@@ -2,7 +2,7 @@ class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         n = len(coins)
 
-        #Memoization
+        # Memoization
         # dp = [ [-1 for _ in range(amount+1)] for _ in range(n) ]
 
         # def rec(index, target):
@@ -26,28 +26,55 @@ class Solution:
 
         # return rec(n-1, amount)
 
-        #Tabulation
+        # Tabulation
 
-        dp = [ [0 for _ in range(amount+1)] for _ in range(n) ]
+        # dp = [ [0 for _ in range(amount+1)] for _ in range(n) ]
 
-        for target in range(amount + 1):
+        # for target in range(amount + 1):
+        #     if target % coins[0] == 0:
+        #         dp[0][target] = 1
+        #     else:
+        #         dp[0][target] = 0
+
+
+        # for i in range(1, n):
+        #     for target in range(amount+1):
+        #         notTake = dp[i-1][target]
+        #         take = 0
+
+        #         if coins[i] <= target:
+        #             take = dp[i][target-coins[i]]
+
+        #         dp[i][target] = take + notTake
+
+        # return dp[n-1][amount]
+
+        #Space Optmized
+        prev = [0 for _ in range(amount+1)]
+
+        for target in range(amount+1):
             if target % coins[0] == 0:
-                dp[0][target] = 1
+                prev[target] = 1
             else:
-                dp[0][target] = 0
-
+                prev[target] = 0
 
         for i in range(1, n):
+            curr = [0 for _ in range(amount+1)]
+
             for target in range(amount+1):
-                notTake = dp[i-1][target]
+                notTake = prev[target]
                 take = 0
 
                 if coins[i] <= target:
-                    take = dp[i][target-coins[i]]
+                    take = curr[target - coins[i]]
 
-                dp[i][target] = take + notTake
+                curr[target] = notTake + take
+            
+            prev = curr
 
-        return dp[n-1][amount]
+        return prev[-1]
+
+
 
 
         
