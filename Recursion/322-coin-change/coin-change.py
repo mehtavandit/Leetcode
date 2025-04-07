@@ -29,24 +29,54 @@ class Solution:
 
         #Tabulation
 
-        dp = [ [0 for _ in range(amount+1)] for _ in range(n)]
+        # dp = [ [0 for _ in range(amount+1)] for _ in range(n)]
 
-        for target in range(0, amount+1):
+        # for target in range(0, amount+1):
+        #     if target % coins[0] == 0:
+        #         dp[0][target] = target // coins[0]
+        #     else:
+        #         dp[0][target] = float('inf')
+
+        # for i in range(1, n):
+        #     for target in range(0, amount + 1):
+        #         notTake = 0 + dp[i-1][target]
+        #         take = float('inf')
+
+        #         if coins[i] <= target:
+        #             take = 1 + dp[i][target - coins[i]]
+
+        #         dp[i][target] = min(notTake, take)
+
+        # res = dp[n-1][amount]
+
+        # return -1 if res == float('inf') else res 
+
+        #Space Optimized
+
+        prev = [0 for _ in range(amount + 1)]
+
+        for target in range(amount+1):
             if target % coins[0] == 0:
-                dp[0][target] = target // coins[0]
+                prev[target] = target // coins[0]
             else:
-                dp[0][target] = float('inf')
+                prev[target] = float('inf')
 
         for i in range(1, n):
-            for target in range(0, amount + 1):
-                notTake = 0 + dp[i-1][target]
+            curr = [0 for _ in range(amount+1)]
+
+            for target in range(amount+1):
+                notTake = 0 + prev[target]
                 take = float('inf')
 
                 if coins[i] <= target:
-                    take = 1 + dp[i][target - coins[i]]
+                    take = 1 + curr[target - coins[i]]
 
-                dp[i][target] = min(notTake, take)
+                curr[target] = min(notTake, take)
 
-        res = dp[n-1][amount]
+            prev = curr
 
+
+        res = prev[-1]
         return -1 if res == float('inf') else res 
+
+
