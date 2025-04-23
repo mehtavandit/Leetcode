@@ -28,19 +28,41 @@ class Solution:
 
         #Tabulation
 
-        dp = [ [-1 for _ in range(2)] for _ in range(n+1)]
+        # dp = [ [-1 for _ in range(2)] for _ in range(n+1)]
 
-        dp[n][0] = dp[n][1] = 0
+        # dp[n][0] = dp[n][1] = 0
+
+        # for ind in range(n-1, -1, -1):
+        #     for buy in range(2):
+        #         profit = 0
+
+        #         if buy == 1:
+        #             profit = max(0 + dp[ind+1][1], -prices[ind] + dp[ind+1][0])
+        #         else:
+        #             profit = max(0 + dp[ind+1][0], prices[ind] + dp[ind+1][1])
+
+        #         dp[ind][buy] = profit
+
+        # return dp[0][1]  
+
+        #Space optimized
+
+        prev = [0] * 2
 
         for ind in range(n-1, -1, -1):
+            curr = [0] * 2
+
             for buy in range(2):
                 profit = 0
 
                 if buy == 1:
-                    profit = max(0 + dp[ind+1][1], -prices[ind] + dp[ind+1][0])
+                    profit = max(0 + prev[1], -prices[ind] + prev[0])
                 else:
-                    profit = max(0 + dp[ind+1][0], prices[ind] + dp[ind+1][1])
+                    profit = max(0 + prev[0], prices[ind] + prev[1])
 
-                dp[ind][buy] = profit
+                curr[buy] = profit
 
-        return dp[0][1]
+            prev = curr
+
+
+        return prev[1]
