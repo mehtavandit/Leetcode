@@ -36,13 +36,45 @@ class Solution:
 
         # return dp[0][0]
 
-        #O(n) solution
+        #O(n) space solution and printing LIS
 
-        dp = [1] * n
+        # dp = [1] * n
+        # hash_arr = [1] * n
+        # maximum = 1
+        # lastIndex = 0
 
-        for ind in range(0, n):
-            for prev in range(0, ind):
-                if nums[prev] < nums[ind]:
-                    dp[ind] = max(dp[ind], 1 + dp[prev])
+        # for ind in range(0, n):
+        #     hash_arr[ind] = ind
+        #     for prev in range(0, ind):
+        #         if nums[prev] < nums[ind] and 1 + dp[prev] > dp[ind]:
+        #             dp[ind] = 1 + dp[prev]
+        #             hash_arr[ind] = prev
 
-        return max(dp)
+        #     if dp[ind] > maximum:
+        #         maximum = dp[ind]
+        #         lastIndex = ind
+
+        # result = []
+
+        # while (hash_arr[lastIndex] != lastIndex):
+        #     result.append(nums[lastIndex])
+        #     lastIndex = hash_arr[lastIndex]
+
+        # result.append(nums[lastIndex])
+
+        # print(result)
+
+        #O(nlogn)
+
+        temp = [nums[0]]
+        length = 1
+
+        for i in range(1, n):
+            if nums[i] > temp[-1]:
+                temp.append(nums[i])
+                length += 1
+            else:
+                ind = bisect_left(temp, nums[i])
+                temp[ind] = nums[i]
+
+        return length
